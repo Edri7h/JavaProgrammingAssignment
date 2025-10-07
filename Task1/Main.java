@@ -8,9 +8,9 @@ class Str {
 
     // Append 
     public void append(String s2) {
-        for (int i = 0; i < s2.length(); i++) {
-            s.insert(s.length(), s2.charAt(i));
-        }
+       
+            s.insert(s.length(), s2);
+        
     }
 
     // Count words
@@ -30,14 +30,19 @@ class Str {
             }
         }
         if (wordFound) {
-             count++;
+             count++; //extra +1 for last word 
         }
         return count;
     }
 
     // replace substring
-    public void replace(String a, String b) {
+    public void replace(char oldChar, char newChar) {
         
+        for(int i=0;i<s.length();i++){
+            if(s.charAt(i)==oldChar){
+                 s.setCharAt(i, newChar);
+            }
+        }
     }
 
     // palindrome 
@@ -54,6 +59,13 @@ class Str {
     // Splice the string starting from startInd to startInd+len 
     public void splice(int startInd, int len) {
         StringBuilder temp = new StringBuilder();
+        // edge cases 
+        if(startInd<0 || len <0 || startInd+len>s.length()){
+            System.out.println("invalid inputs");
+            return;
+        }
+
+
         for (int i = 0; i < s.length(); i++) {
             if (i < startInd || i >= startInd + len) {
                 temp.insert(temp.length(), s.charAt(i));
@@ -65,14 +77,19 @@ class Str {
     // Split the string based on a pattern
     public ArrayList<String> split(char pattern) {
         ArrayList<String> words = new ArrayList<>();
+
         StringBuilder current = new StringBuilder();
+        
+        int lastInd=0;
         for (int i = 0; i < s.length(); i++) {
             char c = s.charAt(i);
             if (c != pattern) {
-                current.insert(current.length(), c);
-            } else if (current.length() > 0) {
+                current.insert(lastInd, c);
+                lastInd+=1;
+            } else if (lastInd > 0) {
                 words.add(current.toString());
                 current = new StringBuilder();
+                lastInd=0;
             }
         }
         if (current.length() > 0) words.add(current.toString());
@@ -173,10 +190,10 @@ public class Main {
                     break;
                 case 3:
                     System.out.print("Enter substring to replace: ");
-                    String oldSub = sc.nextLine();
+                    char oldChar = sc.next().charAt(0);
                     System.out.print("Enter new substring: ");
-                    String newSub = sc.nextLine();
-                    str.replace(oldSub, newSub);
+                    char newChar = sc.next().charAt(0);
+                    str.replace(oldChar, newChar);
                     break;
                 case 4:
                         System.out.print("enter the pattern for spliting :");
