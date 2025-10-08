@@ -3,7 +3,14 @@ package Task1;
 import java.util.ArrayList;
 import java.util.Scanner;
 
-class Str {
+
+// @class MyString
+// @filename- MyString.java
+// @description - this will perform string operations
+// @authore-Ehtesham nawaz 
+
+
+class MyString {
     StringBuilder s = new StringBuilder();
 
     // Append 
@@ -151,7 +158,7 @@ class Str {
 public class Main {
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
-        Str str = new Str();
+        MyString str = new MyString();
 
         System.out.print("Enter initial string: ");
         String initial = sc.nextLine();
